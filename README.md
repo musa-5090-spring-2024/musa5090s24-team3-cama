@@ -1,8 +1,8 @@
 # Roles
-Data Loading: Yinan, Trevor
-Data Engineering: Jonathon, Watson, Tiffany
-Data Science/ML: Jiahang, Emily
-Front End: Xiaofan, Oliver
+- Data Loading: Yinan, Trevor
+- Data Engineering: Jonathon, Watson, Tiffany
+- Data Science/ML: Jiahang, Emily
+- Front End: Xiaofan, Oliver
 
 # Philadelphia Computer-Assisted Mass Appraisal (CAMA) Project
 
