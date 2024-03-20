@@ -1,3 +1,9 @@
+# Roles
+Data Loading: Yinan, Trevor
+Data Engineering: Jonathon, Watson, Tiffany
+Data Science/ML: Jiahang, Emily
+Front End: Xiaofan, Oliver
+
 # Philadelphia Computer-Assisted Mass Appraisal (CAMA) Project
 
 The following is a description of the various infrastructural components of the project. **The names and schemas used here are important, as each team will be working on different components of the project. The names and schemas are designed to be consistent across teams, so that the various components can be integrated together.** If you have any questions about the names or schemas, please ask!
