@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Appraisal Reviewer</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="./styles/accessorPg.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
+  </head>
+  <body>
+    <header class="header">
+      <h1>
+        Mass Appraisal Reviewer
+      </h1>
+    </header>
+
+    <main>
+      <div class="left">
+        <p>There were 350,626 properties that increased in assessed value since the last mass appraisal. Overall, each property assessment changed by an increase of 23.6% on average.
+        </p>
+
+        <div id="chart1"></div>
+        <div id="chart2"></div>
+
+      </div>
+
+      <div id="map"></div>
+    </main>
+
+
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+    <!-- Include main JavaScript file -->
+    <script type="module" src="./scripts/accessor.js"></script>
+    <script type="module" src="./scripts/value_distribution.js"></script>
+    <script type="module" src="./scripts/perc_change.js"></script>
+
+  </body>
+</html>
