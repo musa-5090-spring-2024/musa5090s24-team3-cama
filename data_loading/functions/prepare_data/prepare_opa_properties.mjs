@@ -18,7 +18,7 @@ const PREPARED_DATA_DIR = path.join(__dirname, 'prepared_data/');
 
 const rawFilename = path.join(RAW_DATA_DIR, 'opa_properties.csv');
 const preparedFilename = path.join(PREPARED_DATA_DIR, 'opa_properties.jsonl');
-
+*/
 const bucketName = process.env.DATA_LAKE_BUCKET;
 const storageClient = new Storage();
 const bucket = storageClient.bucket(bucketName);
@@ -58,6 +58,7 @@ const preparedBlobname = 'opa_properties/opa_properties.jsonl';
 await prepared_bucket.upload(preparedFilename, { destination: preparedBlobname });
 console.log(`Uploaded to ${preparedBlobname}`);
 
+/*
 // Load the data into BigQuery as an external table
 const datasetName = process.env.DATA_LAKE_DATASET;
 const tableName = 'opa_properties';
@@ -74,3 +75,4 @@ OPTIONS (
 const bigqueryClient = new BigQuery();
 await bigqueryClient.query(createTableQuery);
 console.log(`Loaded ${tableUri} into ${datasetName}.${tableName}`);
+*/
