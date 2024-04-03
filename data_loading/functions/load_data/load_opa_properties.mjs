@@ -4,13 +4,13 @@ dotenv.config();
 import process from 'process';
 import { BigQuery } from '@google-cloud/bigquery'
 
-const bucketName = process.env.DATA_LAKE_BUCKET;
-const datasetName = process.env.DATA_LAKE_DATASET;
+const Prepared_Bucket_Name = process.env.PREPARED_DATA_BUCKET;
+const datasetName = process.env.INTERNAL_DATASET;
 
 // Load the data into BigQuery as an external table
-const preparedBlobname = 'tables/phl_opa_properties/phl_opa_properties.jsonl';
-const tableName = 'phl_opa_properties';
-const tableUri = `gs://${bucketName}/${preparedBlobname}`;
+const preparedBlobname = 'opa_properties/opa_properties.jsonl';
+const tableName = 'opa_properties';
+const tableUri = `gs://${Prepared_Bucket_Name}/${preparedBlobname}`;
 
 const createTableQuery = `
 CREATE OR REPLACE EXTERNAL TABLE ${datasetName}.${tableName} (
@@ -92,7 +92,7 @@ CREATE OR REPLACE EXTERNAL TABLE ${datasetName}.${tableName} (
   \`pin\` STRING,
   \`building_code_new\` STRING,
   \`building_code_description_new\` STRING,
-  \`geog\` STRING,
+  \`geog\` STRING
 )
 OPTIONS (
   format = 'JSON',
