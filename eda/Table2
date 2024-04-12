@@ -1,0 +1,33 @@
+create or replace table derived.tax_year_assessment_bins as 
+WITH bins_data AS (
+  SELECT
+    year AS tax_year,
+    MIN(market_value) AS lower_bound,
+    MAX(market_value) AS upper_bound,
+    COUNT(*) AS property_count
+  FROM
+    `core.opa_assessments`
+  GROUP BY
+    year
+)
+SELECT
+  tax_year,
+  lower_bound,
+  upper_bound,
+  property_count
+FROM
+  bins_data
+ORDER BY
+  tax_year, lower_bound;
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
