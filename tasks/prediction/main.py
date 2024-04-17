@@ -30,8 +30,10 @@ def model_phl_opa_properties(request):
     properties['garage_type'] = properties['garage_type'].astype(float)
     properties['fireplaces'] = properties['fireplaces'].astype(float)
     properties['category_code'] = properties['category_code'].astype(int)
+
     properties_mdl = properties[
-        ['basements',
+        ['property_id',
+         'basements',
          'category_code',
          'census_tract',
          'central_air',
@@ -51,7 +53,8 @@ def model_phl_opa_properties(request):
          'view_type',
          'building_code_description_new',
          'zip_code',
-         'year_built']]
+         'year_built',
+         'parcel_number']]
     properties_mdl['Age'] = 2024 - properties_mdl['year_built']
     properties_mdl['numRooms'] = np.select([(properties_mdl['number_of_bedrooms'].isna()) & (~properties_mdl['number_of_bathrooms'].isna()),
                                             (properties_mdl['number_of_bathrooms'].isna()) & (~properties_mdl['number_of_bedrooms'].isna()),
@@ -79,7 +82,7 @@ def model_phl_opa_properties(request):
         (properties_mdl['total_livable_area'] != 0) &
         (~properties_mdl['total_area'].isna()) &
         (properties_mdl['area'] < 50000)]
-    X = properties_mdl[['Age', 'numRooms', 'hasBasement', 'hasAC', 'quality', 'buildingdis', 'hasFireplace', 'hasGarage', 'stories', 'logarea', 'view', 'zip_code']]
+    X = properties_mdl[['Age', 'numRooms', 'hasBasement', 'hasAC', 'quality', 'buildingdis', 'hasFireplace', 'hasGarage', 'stories', 'logarea', 'view', 'zip_code', 'parcel_number']]
     y = properties_mdl['sale_price']
     X['zip_code'] = X['zip_code'].astype(str)
     X = X.dropna(subset=['zip_code'])
@@ -88,8 +91,9 @@ def model_phl_opa_properties(request):
     # fit the regression here
     X_train, X_test, y_train, y_test = train_test_split(X_encoded, y, test_size=0.7, random_state=42)
     reg = sm.OLS(y_train, X_train).fit()
-    y_pred = reg.predict(X_train)
-    results = pd.DataFrame({'Predicted_Sale_Price': y_pred})
+    y_pred = reg.predict(X_encoded)  # X_test
+    # results = pd.DataFrame({'Predicted_Sale_Price': y_pred})
+    results = pd.DataFrame({'Property': properties_mdl['property_id'], 'Predicted_Sale_Price': y_pred})
     pandas_gbq.to_gbq(results, 'derived.opa_properties_model', project_id="musa509s24-team3", if_exists='replace')
     print('Processed data into derived.opa_properties_model')
     return 'Success'
