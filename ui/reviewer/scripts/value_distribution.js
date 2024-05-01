@@ -1,35 +1,41 @@
 var options = {
-    series: [{
+  series: [
+    {
       name: "Desktops",
-      data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-  }],
-    chart: {
+      data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+    },
+  ],
+  chart: {
     height: 350,
-    type: 'line',
+    type: "line",
     zoom: {
-      enabled: false
-    }
+      enabled: false,
+    },
   },
   dataLabels: {
-    enabled: false
+    enabled: false,
   },
   stroke: {
-    curve: 'straight'
+    curve: "straight",
   },
   title: {
-    text: 'Current assessment value distribution',
-    align: 'left'
+    text: "Current assessment value distribution",
+    align: "left",
+    style: {
+      fontFamily: "Montserrat",
+      fontWeight: "Medium",
+    },
   },
   grid: {
     row: {
-      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-      opacity: 0.5
+      colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+      opacity: 0.5,
     },
   },
   xaxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-  }
-  };
+    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"],
+  },
+};
 
-  var chart = new ApexCharts(document.querySelector("#chart1"), options);
-  chart.render();
+var chart = new ApexCharts(document.querySelector("#chart1"), options);
+chart.render();
