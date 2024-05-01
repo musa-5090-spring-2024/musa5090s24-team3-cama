@@ -1,0 +1,89 @@
+# This is a sample workflow to test or replace with your source code.
+#
+# This workflow passes the region where the workflow is deployed
+# to the Wikipedia API and returns a list of related Wikipedia articles.
+# A region is retrieved from the GOOGLE_CLOUD_LOCATION system variable
+# unless you input your own search term; for example, {"searchTerm": "asia"}.
+main:
+    steps:
+        - parallelStep:
+            parallel:
+                branches:
+                    - property:
+                        steps:
+                            - extractPhlPropertyData:
+                                call: http.post
+                                args:
+                                    url: 'https://us-east1-musa509s24-team3.cloudfunctions.net/extract-opa-properties'
+                                    auth:
+                                        type: OIDC
+                            - preparePhlPropertyData:
+                                call: http.post
+                                args:
+                                    url: 'https://us-east1-musa509s24-team3.cloudfunctions.net/prepare-opa-properties'
+                                    auth:
+                                        type: OIDC
+                            - loadPhlPropertyData:
+                                call: http.get
+                                args:
+                                    url: 'https://us-east1-musa509s24-team3.cloudfunctions.net/load-opa-properties'
+                                    auth:
+                                        type: OIDC
+                    - parcels:
+                        steps:
+                            - extractPhlParcelData:
+                                call: http.post
+                                args:
+                                    url: 'https://us-east1-musa509s24-team3.cloudfunctions.net/extract-pwd-parcels'
+                                    auth:
+                                        type: OIDC
+                            - preparePhlParcelData:
+                                call: http.post
+                                args:
+                                    url: 'https://us-east1-musa509s24-team3.cloudfunctions.net/prepare-pwd-parcels'
+                                    auth:
+                                        type: OIDC
+                            - loadPhlParcelData:
+                                call: http.get
+                                args:
+                                    url: 'https://us-east1-musa509s24-team3.cloudfunctions.net/load-pwd-parcels'
+                                    auth:
+                                        type: OIDC
+                    - assessments:
+                        steps:
+                            - extractPhlAssessmentsData:
+                                call: http.post
+                                args:
+                                    url: 'https://us-east1-musa509s24-team3.cloudfunctions.net/extract-opa-assessments'
+                                    auth:
+                                        type: OIDC
+                            - preparePhlAssessmentsData:
+                                call: http.post
+                                args:
+                                    url: 'https://us-east1-musa509s24-team3.cloudfunctions.net/prepare-opa-assessments'
+                                    auth:
+                                        type: OIDC
+                            - loadPhlAssessmentsData:
+                                call: http.get
+                                args:
+                                    url: 'https://us-east1-musa509s24-team3.cloudfunctions.net/load-opa-assessments'
+                                    auth:
+                                        type: OIDC
+        - learning:
+            call: http.post
+            args:
+                url: https://us-east1-musa509s24-team3.cloudfunctions.net/model_phl_opa_properties
+                timeout: 1800
+                auth:
+                    type: OIDC
+        - tile:
+            call: http.post
+            args:
+                url: https://us-east1-musa509s24-team3.cloudfunctions.net/tile_upload
+                auth:
+                    type: OIDC       
+                 
+
+                    
+
+
